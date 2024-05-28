@@ -4,6 +4,11 @@ import logoVite from "./assets/logo-vite.svg";
 import logoElectron from "./assets/logo-electron.svg";
 import "./App.css";
 
+/**
+ * The main React component that holds and presents all other components
+ * @component
+ */
+
 function App() {}
 
 // App below is part of boilerplate

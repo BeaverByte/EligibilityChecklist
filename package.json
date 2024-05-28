@@ -20,7 +20,8 @@
     "e2e": "playwright test"
   },
   "dependencies": {
-    "electron-updater": "^6.1.8"
+    "electron-updater": "^6.1.8",
+    "jsdoc": "^4.0.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.42.1",

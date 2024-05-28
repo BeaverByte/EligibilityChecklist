@@ -24,6 +24,21 @@ function Eligibility() {
           <dt>Porg 2</dt>
           <dd>ABCD</dd>
         </dl>
+        <h2>Riders</h2>
+        <section>
+          <table className="riders">
+            <tr>
+              <th>Header 1</th>
+            </tr>
+            <tr>
+              <td>Data 1</td>
+              <td>Data 2</td>
+              <td>Data 3</td>
+              <td>Data 4</td>
+              <td>Data 5</td>
+            </tr>
+          </table>
+        </section>
       </div>
     </div>
   );
