@@ -1,6 +1,8 @@
+import { useState } from "react";
 function Questionnaire() {
+  const [question, setQuestion] = useState(1);
   return (
-    <div className="questionnaire">
+    <form className="questionnaire">
       <h1>Question</h1>
       <section className="answers">
         <input type="checkbox" name="option1" />
@@ -11,7 +13,7 @@ function Questionnaire() {
 
       <button type="button">Previous</button>
       <button type="button">Next</button>
-    </div>
+    </form>
   );
 }
 
