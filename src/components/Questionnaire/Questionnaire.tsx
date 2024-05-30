@@ -1,18 +1,33 @@
 import { useState } from "react";
+import Question from "../Question/Question";
+const questions = [
+  {
+    question: "Does the member have Medical?",
+    name: "hasMedical",
+    type: "checkbox",
+    options: [
+      { label: "Yes", porgs: [], riders: ["MED"] },
+      { label: "No", porgs: [], riders: [] },
+    ],
+  },
+];
+
 function Questionnaire() {
-  const [question, setQuestion] = useState(1);
+  const [answers, setAnswers] = useState("");
+  const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+  const [riders, setRiders] = useState([]);
+  const [porgs, setPorgs] = useState([]);
+
+  function handleOption(e) {
+    e.preventDefault();
+
+    console.log("What");
+    setAnswers(e.target.value);
+  }
+
   return (
     <form className="questionnaire">
-      <h1>Question</h1>
-      <section className="answers">
-        <input type="checkbox" name="option1" />
-        <label htmlFor="option1">Option 1</label>
-        <input type="checkbox" name="option2" />
-        <label htmlFor="option2">Option 2</label>
-      </section>
-
-      <button type="button">Previous</button>
-      <button type="button">Next</button>
+      <Question question={currentQuestion} onChange={handleOption} />
     </form>
   );
 }
