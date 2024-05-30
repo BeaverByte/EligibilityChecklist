@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import Question from "../Question/Question";
 const questions = [
   {
@@ -18,7 +18,10 @@ function Questionnaire() {
   const [riders, setRiders] = useState([]);
   const [porgs, setPorgs] = useState([]);
 
-  function handleOption(e) {
+  function handleOption(e: {
+    preventDefault: () => void;
+    target: { value: SetStateAction<string> };
+  }) {
     e.preventDefault();
 
     console.log("What");
