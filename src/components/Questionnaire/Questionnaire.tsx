@@ -3,7 +3,6 @@ import Question from "../Question/Question";
 const questions = [
   {
     question: "Does the member have Medical?",
-    name: "hasMedical",
     type: "checkbox",
     options: [
       { label: "Yes", porgs: [], riders: ["MED"] },

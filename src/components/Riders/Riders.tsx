@@ -1,3 +1,8 @@
+/**
+ * @component
+ * @returns
+ */
+
 function Riders() {
   return (
     <section>
