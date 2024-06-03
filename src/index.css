@@ -32,7 +32,7 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: 2em;
   display: flex;
   place-items: center;
   min-width: 320px;
@@ -100,4 +100,8 @@ code {
   code {
     background-color: #f9f9f9;
   }
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

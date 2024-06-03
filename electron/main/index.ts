@@ -61,8 +61,10 @@ async function createWindow() {
       // contextIsolation: false,
     },
     minWidth: 700,
-    minHeight: 600,
-    resizable: false,
+    minHeight: 700,
+    // resizable: false,
+    width: 700,
+    height: 700,
   });
 
   if (VITE_DEV_SERVER_URL) {
