@@ -60,6 +60,9 @@ async function createWindow() {
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       // contextIsolation: false,
     },
+    minWidth: 700,
+    minHeight: 600,
+    resizable: false,
   });
 
   if (VITE_DEV_SERVER_URL) {

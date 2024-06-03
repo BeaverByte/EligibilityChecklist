@@ -5,7 +5,7 @@ import Riders from "./components/Riders/Riders";
 
 function Eligibility() {
   return (
-    <div>
+    <div id="root">
       <Questionnaire />
       <div>
         <h2>Relevant Dates</h2>

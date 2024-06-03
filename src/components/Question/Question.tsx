@@ -3,7 +3,7 @@ import styles from "../Questionnaire/Questionnaire.module.css";
 
 function Question({ question, onChange }) {
   return (
-    <div className={styles.div}>
+    <div className={styles.box}>
       <h1 className="question">{question.question}</h1>
       <section className="options">
         {question.options.map((option: any, index: any) => (
