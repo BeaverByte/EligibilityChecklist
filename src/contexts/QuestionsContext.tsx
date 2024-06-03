@@ -5,13 +5,13 @@ const questions = [
   {
     id: "q1",
     question: "Does the member have Medical?",
-    type: "checkbox",
+    type: "radio",
     options: [{ answer: "Yes", nextQuestion: "q2" }, { answer: "No" }],
   },
   {
     id: "q2",
     question: "Does the member have a high deductible plan?",
-    type: "checkbox",
+    type: "radio",
     options: [
       { answer: "Yes", riders: ["HDP"], nextQuestion: "q3" },
       { answer: "No" },
@@ -51,7 +51,7 @@ const questions = [
   },
   {
     question: "Does the member have Dental?",
-    type: "checkbox",
+    type: "radio",
     options: [
       { answer: "Yes", porgs: [], riders: ["DEN"] },
       { answer: "No", porgs: [], riders: [] },
@@ -59,7 +59,7 @@ const questions = [
   },
   {
     question: "Does the member have Vision?",
-    type: "checkbox",
+    type: "radio",
     options: [
       { answer: "Yes", porgs: [], riders: ["VIS"] },
       { answer: "No", porgs: [], riders: [] },
@@ -67,7 +67,7 @@ const questions = [
   },
   {
     question: "Does the member have Life?",
-    type: "checkbox",
+    type: "radio",
     options: [
       { answer: "Yes", porgs: [], riders: [""] },
       { answer: "No", porgs: [], riders: [] },
@@ -195,11 +195,12 @@ function QuestionsProvider({ children }) {
 }
 
 // Function to export that provides access to context, no strictly necessary but cleaner
-function useQuestions() {
+// Should be camelcase but HMR does not like that
+function UseQuestions() {
   const context = useContext(QuestionsContext);
   if (context === undefined)
     throw new Error("QuestionsContext was used outside the QuestionsProvider");
   return context;
 }
 
-export { QuestionsProvider, useQuestions };
+export { QuestionsProvider, UseQuestions };

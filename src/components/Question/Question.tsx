@@ -1,15 +1,18 @@
 import { Key, useEffect } from "react";
-import { useQuestions } from "../../contexts/QuestionsContext";
+import { UseQuestions } from "../../contexts/QuestionsContext";
 import styles from "../Questionnaire/Questionnaire.module.css";
 import Button from "../Button/Button";
 
 function Question({}) {
-  const { getQuestion, currentQuestion } = useQuestions();
+  const { getQuestion, currentQuestion } = UseQuestions();
 
   const { id, question, type, options } = currentQuestion;
 
   useEffect(() => {
+    // For debugging
+    console.log("Current Question is ");
     console.log(currentQuestion);
+    console.log("Options are ");
     console.log(options);
   }, [currentQuestion, options]);
 
@@ -20,7 +23,7 @@ function Question({}) {
       <section className="options">
         {options.map((answer: any, index: any) => (
           <div key={index}>
-            <input type={type} name={options[index].answer} />
+            <input type={type} name="option" />
             <label htmlFor={options[index].answer}>
               {options[index].answer}
             </label>
