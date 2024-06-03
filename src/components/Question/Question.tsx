@@ -28,18 +28,6 @@ function Question({}) {
         ))}
       </section>
 
-      {/* <h1 className="question">{question.question}</h1>
-      <section className="options">
-        {question.options.map((option: any, index: any) => (
-          <div key={index}>
-            <input type={question.type} name={question.options[index].answer} />
-            <label htmlFor={question.options[index].answer}>
-              {question.options[index].answer}
-            </label>
-          </div>
-        ))}
-      </section> */}
-
       <Button className="previous">Previous</Button>
       <Button className="next">Next</Button>
     </div>

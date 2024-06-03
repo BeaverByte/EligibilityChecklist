@@ -77,9 +77,6 @@ const questions = [
 
 function Questionnaire() {
   const [answers, setAnswers] = useState("");
-  const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
-  const [riders, setRiders] = useState([]);
-  const [porgs, setPorgs] = useState([]);
 
   function handleOption(e: {
     preventDefault: () => void;
@@ -93,7 +90,7 @@ function Questionnaire() {
 
   return (
     <form className="questionnaire">
-      <Question question={currentQuestion} onChange={handleOption} />
+      <Question />
     </form>
   );
 }
