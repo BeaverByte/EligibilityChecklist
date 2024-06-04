@@ -130,34 +130,39 @@ function reducer(
 }
 
 function QuestionsProvider({ children }) {
-  const [{ questions, isLoading, currentQuestion, error }, dispatch] =
-    useReducer(reducer, initialState);
+  const [{ isLoading, currentQuestion, error }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
-  // useEffect for DOM events, browser apis, data fetching, or local storage
-  useEffect(function () {
-    // async function fetchCities() {
-    //   dispatch({ type: "loading" });
-    //   try {
-    //     const res = await fetch(`${BASE_URL}/cities`);
-    //     const data = await res.json();
-    //     dispatch({ type: "cities/loaded", payload: data });
-    //   } catch {
-    //     dispatch({
-    //       type: "rejected",
-    //       payload: "There was an error loading cities...",
-    //     });
-    //   }
-    // }
-    // fetchCities();
-  }, []);
+  // // useEffect for DOM events, browser apis, data fetching, or local storage
+  // useEffect(function () {
+  //   // async function fetchCities() {
+  //   //   dispatch({ type: "loading" });
+  //   //   try {
+  //   //     const res = await fetch(`${BASE_URL}/cities`);
+  //   //     const data = await res.json();
+  //   //     dispatch({ type: "cities/loaded", payload: data });
+  //   //   } catch {
+  //   //     dispatch({
+  //   //       type: "rejected",
+  //   //       payload: "There was an error loading cities...",
+  //   //     });
+  //   //   }
+  //   // }
+  //   // fetchCities();
+  // }, []);
 
-  const getQuestion = function () {
-    dispatch({ type: "loading" });
+  const updateQuestion = function (answer) {
+    //dispatch({ type: "loading" });
 
-    const data = questions[0];
-    console.log(data);
+    questions.forEach((element) => {
+      console.log("Yes" + element);
+    });
 
-    dispatch({ type: "question/loaded", payload: data });
+    //const data = questions[0];
+    //console.log(data);
+    //dispatch({ type: "question/loaded", payload: data });
   };
 
   // const getCity = useCallback(
@@ -186,7 +191,7 @@ function QuestionsProvider({ children }) {
         isLoading,
         currentQuestion,
         error,
-        getQuestion,
+        updateQuestion,
       }}
     >
       {children}
