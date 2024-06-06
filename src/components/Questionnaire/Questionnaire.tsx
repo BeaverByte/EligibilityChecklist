@@ -21,7 +21,7 @@ function Questionnaire() {
       return;
     }
 
-    console.log("Question submitted" + " : " + selectedAnswer);
+    console.log("Answer submitted" + " : " + selectedAnswer);
     updateQuestion(selectedAnswer);
   }
 

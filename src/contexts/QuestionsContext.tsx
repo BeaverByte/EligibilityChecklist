@@ -9,13 +9,13 @@ import {
 // Questions Data
 const questions = [
   {
-    id: "q1",
+    id: "Medical1",
     question: "Does the member have Medical?",
     type: "radio",
     options: [{ answer: "Yes", nextQuestion: "q2" }, { answer: "No" }],
   },
   {
-    id: "q2",
+    id: "Medical2",
     question: "Does the member have a high deductible plan?",
     type: "radio",
     options: [
@@ -24,7 +24,7 @@ const questions = [
     ],
   },
   {
-    id: "q3",
+    id: "Medical3",
     question: "What is the Medical Network?",
     type: "checkbox",
     options: [
@@ -32,15 +32,40 @@ const questions = [
         answer: "Aetna (Aetna Signature Administrators)",
         nextQuestion: "q4a",
       },
-      { answer: "Cofinity or Cofinity Advantage", nextQuestion: "q4b" },
-      { answer: "PHCS", nextQuestion: "q4c" },
-      { answer: "First Health", nextQuestion: "q4d" },
+      {
+        answer: "Cofinity or Cofinity Advantage",
+        riders: [PHW],
+        nextQuestion: "q4b",
+      },
+      { answer: "PHCS", riders: [PHS, AAH, COR], nextQuestion: "q4c" },
+      {
+        answer: "First Health",
+        riders: [FHN, AAH, COR],
+        porgs: [FHNC],
+      },
     ],
   },
   {
-    id: "q4a",
+    id: "Medical4",
     question:
       "Does the Nidd policy tab show same copay for Generalist and Specialist?",
+    type: "radio",
+    options: [
+      {
+        answer: "yes",
+        porgs: ["AETN"],
+        riders: ["AET, AAH, COR"],
+      },
+      {
+        answer: "no",
+        porgs: ["AEPC"],
+        riders: ["AET, AAH, COR"],
+      },
+    ],
+  },
+  {
+    id: "q4b",
+    question: "Does member live in Michigan?",
     type: "radio",
     options: [
       {
@@ -163,19 +188,35 @@ function QuestionsProvider({ children }) {
   const updateQuestion = function () {
     //dispatch({ type: "loading" });
 
-    // questions.foreach((question) => {
-    //   question.options.forEach((option) => {
-    //     if (option.answer === selectedAnswer) {
-    //       console.log("Match!");
-    //     }
-    //   });
-    // });
+    // Example question format
+    // {
+    //     id: "q3",
+    //     question: "What is the Medical Network?",
+    //     type: "checkbox",
+    //     options: [
+    //       {
+    //         answer: "Aetna (Aetna Signature Administrators)",
+    //         nextQuestion: "q4a",
+    //       },
+    //       { answer: "Cofinity or Cofinity Advantage", nextQuestion: "q4b" },
+    //       { answer: "PHCS", nextQuestion: "q4c" },
+    //       { answer: "First Health", nextQuestion: "q4d" },
+    //     ],
+    //   },
 
-    currentQuestion.options.forEach((answer) => {
-      if (answer === selectedAnswer) {
-        console.log("Match2!");
+    currentQuestion.options.forEach((option) => {
+      if (option.answer === selectedAnswer) {
+        if (option.nextQuestion !== undefined) {
+          console.log("Chosen answer connects to another question.");
+        }
+        if (option.riders !== undefined) {
+          console.log("Answer has corresponding riders.");
+        }
+        if (option.porgs !== undefined) {
+          console.log("Answer has corresponding Porgs.");
+        }
       }
-      console.log(answer);
+      // console.log(option);
     });
 
     //const data = questions[0];
