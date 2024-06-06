@@ -1,4 +1,10 @@
-import { createContext, useEffect, useContext, useReducer } from "react";
+import {
+  createContext,
+  useEffect,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
 
 // Questions Data
 const questions = [
@@ -135,6 +141,7 @@ function QuestionsProvider({ children }) {
     initialState
   );
 
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   // // useEffect for DOM events, browser apis, data fetching, or local storage
   // useEffect(function () {
   //   // async function fetchCities() {
@@ -153,11 +160,22 @@ function QuestionsProvider({ children }) {
   //   // fetchCities();
   // }, []);
 
-  const updateQuestion = function (answer) {
+  const updateQuestion = function () {
     //dispatch({ type: "loading" });
 
-    questions.forEach((element) => {
-      console.log("Yes" + element);
+    // questions.foreach((question) => {
+    //   question.options.forEach((option) => {
+    //     if (option.answer === selectedAnswer) {
+    //       console.log("Match!");
+    //     }
+    //   });
+    // });
+
+    currentQuestion.options.forEach((answer) => {
+      if (answer === selectedAnswer) {
+        console.log("Match2!");
+      }
+      console.log(answer);
     });
 
     //const data = questions[0];
@@ -192,6 +210,8 @@ function QuestionsProvider({ children }) {
         currentQuestion,
         error,
         updateQuestion,
+        selectedAnswer,
+        setSelectedAnswer,
       }}
     >
       {children}

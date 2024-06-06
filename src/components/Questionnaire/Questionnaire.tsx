@@ -5,21 +5,29 @@ import Button from "../Button/Button";
 import styles from "../Questionnaire/Questionnaire.module.css";
 
 function Questionnaire() {
-  const { currentQuestion, updateQuestion } = UseQuestions();
+  const { currentQuestion, updateQuestion, selectedAnswer, setSelectedAnswer } =
+    UseQuestions();
 
   const { id, question, type, options } = currentQuestion;
 
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  //const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const answer = selectedAnswer ?? null;
+    if (answer === null) {
+      console.log("No answer selected, please choose one and try again.");
+      return;
+    }
+
     console.log("Question submitted" + " : " + selectedAnswer);
     updateQuestion(selectedAnswer);
   }
 
   function handleOptionChange(event) {
-    setSelectedAnswer(event.target.value);
-    //console.log(event.target.value);
+    let chosenAnswer = event.target.value;
+    setSelectedAnswer(chosenAnswer);
   }
 
   // useEffect(() => {
