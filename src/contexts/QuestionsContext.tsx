@@ -34,14 +34,14 @@ const questions = [
       },
       {
         answer: "Cofinity or Cofinity Advantage",
-        riders: [PHW],
+        riders: ["PHW"],
         nextQuestion: "q4b",
       },
-      { answer: "PHCS", riders: [PHS, AAH, COR], nextQuestion: "q4c" },
+      { answer: "PHCS", riders: ["PHS", "AAH", "COR"], nextQuestion: "q4c" },
       {
         answer: "First Health",
-        riders: [FHN, AAH, COR],
-        porgs: [FHNC],
+        riders: ["FHN", "AAH", "COR"],
+        porgs: ["FHNC"],
       },
     ],
   },
