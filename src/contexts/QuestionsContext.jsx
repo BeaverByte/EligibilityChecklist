@@ -4,6 +4,8 @@ import {
   useContext,
   useReducer,
   useState,
+  ReactNode,
+  Children,
 } from "react";
 
 // Questions Data
@@ -119,10 +121,7 @@ const initialState = {
 };
 
 // Dispatched data through "useReducer" will be processed here to update relevant state
-function reducer(
-  state: { cities: any[] },
-  action: { type: any; payload: any }
-) {
+function reducer(state, action) {
   switch (action.type) {
     case "loading":
       return { ...state, isLoading: true };
@@ -142,9 +141,7 @@ function reducer(
       return {
         ...state,
         isLoading: false,
-        cities: state.cities.filter(
-          (city: { id: any }) => city.id !== action.payload
-        ),
+        cities: state.cities.filter((city) => city.id !== action.payload),
         currentCity: {},
       };
 
@@ -261,7 +258,7 @@ function QuestionsProvider({ children }) {
 }
 
 // Function to export that provides access to context, no strictly necessary but cleaner
-// Should be camelcase but HMR does not like that
+// Should be camel case but HMR does not like that
 function UseQuestions() {
   const context = useContext(QuestionsContext);
   if (context === undefined)
