@@ -38,7 +38,7 @@ function Questionnaire() {
     <form className={styles.questionnaire} onSubmit={handleSubmit}>
       <Question question={question} />
       <section className="options">
-        {options.map((answer: any, index: any) => (
+        {options.map((answer, index) => (
           <div key={index}>
             <input
               value={options[index].answer}

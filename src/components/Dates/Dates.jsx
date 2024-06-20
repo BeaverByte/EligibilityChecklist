@@ -1,6 +1,6 @@
 function Dates() {
   return (
-    <dl>
+    <dl className="dates">
       <dt>Hire Date</dt>
       <dd>01/01/1990</dd>
 
