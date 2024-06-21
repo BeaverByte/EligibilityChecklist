@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@types/react-router": "^5.1.20",
-    "better-sqlite3": "^10.0.0",
+    "better-sqlite3": "^10.1.0",
     "electron-updater": "^6.1.8",
     "jsdoc": "^4.0.3"
   },

@@ -8,7 +8,7 @@ function Questionnaire() {
   const { currentQuestion, updateQuestion, selectedAnswer, setSelectedAnswer } =
     UseQuestions();
 
-  const { id, question, type, options } = currentQuestion;
+  const { id, question, elementType, options } = currentQuestion;
 
   //const [selectedAnswer, setSelectedAnswer] = useState(null);
 
@@ -30,10 +30,6 @@ function Questionnaire() {
     setSelectedAnswer(chosenAnswer);
   }
 
-  // useEffect(() => {
-  //   console.log(selectedAnswer);
-  // });
-
   return (
     <form className={styles.questionnaire} onSubmit={handleSubmit}>
       <Question question={question} />
@@ -43,7 +39,7 @@ function Questionnaire() {
             <input
               value={options[index].answer}
               name="option"
-              type={type}
+              type={elementType}
               //checked={selectedAnswer === options.answer}
               onChange={handleOptionChange}
             />
