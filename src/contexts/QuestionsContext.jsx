@@ -174,10 +174,6 @@ const initialState = {
   error: "",
 };
 
-useEffect(() => {
-  console.log(riders);
-});
-
 // Dispatched data through "useReducer" will be processed here to update relevant state
 function reducer(state, action) {
   switch (action.type) {
@@ -189,7 +185,7 @@ function reducer(state, action) {
         (question) => question.id === submittedQuestion.id
       );
 
-      console.log(currentQuestion);
+      console.log(state.currentQuestion);
 
       return {
         ...state,
@@ -238,6 +234,10 @@ function QuestionsProvider({ children }) {
   ] = useReducer(reducer, initialState);
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+  useEffect(() => {
+    console.log("Riders are " + riders);
+  });
 
   const updateQuestion = function () {
     //dispatch({ type: "loading" });
