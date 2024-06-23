@@ -4,8 +4,6 @@ import {
   useContext,
   useReducer,
   useState,
-  ReactNode,
-  Children,
   useCallback,
 } from "react";
 
@@ -176,6 +174,10 @@ const initialState = {
   error: "",
 };
 
+useEffect(() => {
+  console.log(riders);
+});
+
 // Dispatched data through "useReducer" will be processed here to update relevant state
 function reducer(state, action) {
   switch (action.type) {
@@ -194,11 +196,12 @@ function reducer(state, action) {
         isLoading: false,
         riders: [...state.riders, submittedQuestion.riders],
         porgs: [...state.porgs, submittedQuestion.porgs],
-        currentQuestion: searchedQuestion || questions[0],
+        // currentQuestion: searchedQuestion || questions[0],
       };
     case "question/updated":
       return {
         ...state,
+        currentQuestion: [action.payload],
       };
     case "city/created":
       return {
@@ -244,7 +247,7 @@ function QuestionsProvider({ children }) {
       if (option.answer === selectedAnswer) {
         if (option.nextQuestion !== undefined) {
           console.log("Chosen answer connects to another question.");
-          nextQuestion = option.nextQuestion;
+          //nextQuestion = option.nextQuestion;
           dispatch({ type: "question/updated", payload: nextQuestion });
 
           questions.forEach((question) => {
