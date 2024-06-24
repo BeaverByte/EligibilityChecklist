@@ -157,10 +157,6 @@ const questions = [
   },
 ];
 
-//console.log(JSON.stringify(questions));
-
-//console.log("And then! " + JSON.parse(JSON.stringify(questions)));
-
 /**
  * Context to create a provider with centralized updates of state for questions
  */

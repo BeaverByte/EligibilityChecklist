@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from "react";
 import Question from "../Question/Question";
-import { UseQuestions } from "@/contexts/QuestionsContext";
+import { UseQuestions } from "../../contexts/QuestionsContext";
 import Button from "../Button/Button";
 import styles from "../Questionnaire/Questionnaire.module.css";
 
@@ -9,8 +9,6 @@ function Questionnaire() {
     UseQuestions();
 
   const { id, question, elementType, options } = currentQuestion;
-
-  //const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   function handleSubmit(event) {
     event.preventDefault();
