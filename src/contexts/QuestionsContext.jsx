@@ -6,6 +6,7 @@ import {
   useState,
   useCallback,
 } from "react";
+import { textChangeRangeIsUnchanged } from "typescript";
 
 // Questions Data
 const questions = [
@@ -181,11 +182,9 @@ function reducer(state, action) {
       return { ...state, isLoading: true };
 
     case "question/loaded":
-      const searchedQuestion = (state.questions || []).find(
-        (question) => question.id === selectedAnswer.id
+      console.log(
+        "currentQuestion state is " + JSON.stringify(state.currentQuestion)
       );
-
-      console.log(state.currentQuestion);
 
       return {
         ...state,
@@ -235,45 +234,39 @@ function QuestionsProvider({ children }) {
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
+  // See what riders and porgs are, delete this when prod
   useEffect(() => {
-    console.log("Riders are " + riders);
+    //console.log("Riders are " + riders);
+    //console.log("Porgs are " + porgs);
   });
 
+  /**
+   * Update the question state
+   */
   const updateQuestion = function () {
     //dispatch({ type: "loading" });
 
-    const selectedOption = currentQuestion.options.filter((option) => {
-      option.answer === selectedAnswer;
+    // Corresponding option that user chose in questionnaire
+    const selectedOption = currentQuestion.options.find((option) => {
+      return option.answer === selectedAnswer;
     });
 
     console.log("currentQuestion is " + JSON.stringify(currentQuestion));
 
-    console.log("selectedOption is " + selectedOption);
+    console.log("selectedOption is " + JSON.stringify(selectedOption));
 
-    // Search current question's options to match selected answer
-    currentQuestion.options.forEach((option) => {
-      if (option.answer === selectedAnswer) {
-        // Find if there is a next question
-        if (option.nextQuestion !== undefined) {
-          // Update to next question
-          console.log(
-            "Chosen answer connects to another question. Dispatching payload :" +
-              option.nextQuestion
-          );
+    // currentQuestion needs to have state updated to be the nextQuestion if exists based on selectedOption if exists
+    if (selectedOption && selectedOption.nextQuestion) {
+      console.log(
+        "nextQuestion exists in selectedOption " +
+          JSON.stringify(selectedOption)
+      );
+    } else {
+      console.log("nextQuestion not found!");
+    }
 
-          dispatch({ type: "question/updated", payload: option.nextQuestion });
-
-          questions.forEach((question) => {
-            if (question === option.nextQuestion) {
-              console.log("nextQuestion found!");
-              nextQuestion = question;
-            } else {
-              console.log("nextQuestion not found per answer.");
-            }
-          });
-        }
-      }
-    });
+    console.log("Riders are " + riders);
+    console.log("Porgs are " + porgs);
 
     dispatch({
       type: "question/loaded",

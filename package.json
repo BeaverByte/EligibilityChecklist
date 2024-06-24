@@ -17,7 +17,9 @@
     "build": "tsc && vite build && electron-builder",
     "preview": "vite preview",
     "pree2e": "vite build --mode=test",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@types/react-router": "^5.1.20",
@@ -27,12 +29,16 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.42.1",
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^16.0.0",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/ui": "^1.6.0",
     "autoprefixer": "^10.4.18",
     "electron": "^29.1.1",
     "electron-builder": "^24.13.3",
+    "jsdom": "^24.1.0",
     "postcss": "^8.4.35",
     "postcss-import": "^16.0.1",
     "react": "^18.2.0",
@@ -41,6 +47,7 @@
     "typescript": "^5.4.2",
     "vite": "^5.1.5",
     "vite-plugin-electron": "^0.28.4",
-    "vite-plugin-electron-renderer": "^0.14.5"
+    "vite-plugin-electron-renderer": "^0.14.5",
+    "vitest": "^1.6.0"
   }
 }
