@@ -182,7 +182,7 @@ function reducer(state, action) {
 
     case "question/loaded":
       const searchedQuestion = (state.questions || []).find(
-        (question) => question.id === submittedQuestion.id
+        (question) => question.id === selectedAnswer.id
       );
 
       console.log(state.currentQuestion);
@@ -190,7 +190,7 @@ function reducer(state, action) {
       return {
         ...state,
         isLoading: false,
-        riders: [...state.riders, submittedQuestion.riders],
+        riders: [...state.riders, ...(submittedQuestion?.riders || [])],
         porgs: [...state.porgs, submittedQuestion.porgs],
         // currentQuestion: searchedQuestion || questions[0],
       };
@@ -242,13 +242,26 @@ function QuestionsProvider({ children }) {
   const updateQuestion = function () {
     //dispatch({ type: "loading" });
 
-    // Search current question's options
+    const selectedOption = currentQuestion.options.filter((option) => {
+      option.answer === selectedAnswer;
+    });
+
+    console.log("currentQuestion is " + JSON.stringify(currentQuestion));
+
+    console.log("selectedOption is " + selectedOption);
+
+    // Search current question's options to match selected answer
     currentQuestion.options.forEach((option) => {
       if (option.answer === selectedAnswer) {
+        // Find if there is a next question
         if (option.nextQuestion !== undefined) {
-          console.log("Chosen answer connects to another question.");
-          //nextQuestion = option.nextQuestion;
-          dispatch({ type: "question/updated", payload: nextQuestion });
+          // Update to next question
+          console.log(
+            "Chosen answer connects to another question. Dispatching payload :" +
+              option.nextQuestion
+          );
+
+          dispatch({ type: "question/updated", payload: option.nextQuestion });
 
           questions.forEach((question) => {
             if (question === option.nextQuestion) {
