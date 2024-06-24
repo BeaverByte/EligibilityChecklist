@@ -5,13 +5,18 @@ import Button from "../Button/Button";
 import styles from "../Questionnaire/Questionnaire.module.css";
 
 function Questionnaire() {
-  const { currentQuestion, updateQuestion, selectedAnswer, setSelectedAnswer } =
-    UseQuestions();
+  const {
+    currentQuestion,
+    updateQuestion,
+    selectedAnswer,
+    setSelectedAnswer,
+    questionsList,
+  } = UseQuestions();
 
   const { id, text, elementType, options } = currentQuestion;
 
   useEffect(() => {
-    console.log(selectedAnswer);
+    console.log(JSON.stringify(questionsList));
   }, []);
 
   const handleSubmit = function (event) {
@@ -27,6 +32,11 @@ function Questionnaire() {
 
   const handleOptionChange = function (event) {
     let chosenAnswer = event.target.value;
+
+    if (chosenAnswer === selectedAnswer) {
+      console.log("Answer already chosen, deselecting");
+      setSelectedAnswer(null);
+    }
 
     console.log("Setting answer to " + chosenAnswer);
     setSelectedAnswer(chosenAnswer);

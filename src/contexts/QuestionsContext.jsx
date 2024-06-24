@@ -17,6 +17,13 @@ const QuestionsContext = createContext();
 const initialState = {
   isLoading: false,
   currentQuestion: questionBank[1],
+  questionsList: [
+    ...questionBank.filter((question) => {
+      if (question.required === true) {
+        return question;
+      }
+    }),
+  ],
   riders: [],
   porgs: [],
   error: "",
@@ -52,7 +59,7 @@ function reducer(state, action) {
         ...state,
         isLoading: false,
         riders: [...state.riders, ...(selectedOption?.riders || [])],
-        porgs: [...state.porgs, selectedOption.porgs],
+        porgs: [...state.porgs, selectedOption?.porgs],
       };
     case "city/created":
       return {
@@ -94,8 +101,10 @@ const dispatchWithPromise = (dispatch, action) => {
 };
 
 function QuestionsProvider({ children }) {
-  const [{ isLoading, currentQuestion, riders, porgs, error }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { isLoading, currentQuestion, questionsList, riders, porgs, error },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
@@ -110,6 +119,10 @@ function QuestionsProvider({ children }) {
    */
   const updateQuestion = function () {
     //dispatch({ type: "loading" });
+
+    //testing questionslist
+    console.log("questions list is " + questionsList);
+    console.log();
 
     // Corresponding option that user chose in questionnaire
     const selectedOption = currentQuestion.options.find((option) => {
@@ -129,6 +142,8 @@ function QuestionsProvider({ children }) {
       console.log("nextQuestion not found!");
       return;
     }
+
+    // If option does not have nextQuestion continue through questions array
 
     const nextQuestion = findMatchingQuestionInArray(
       selectedOption.nextQuestion,
@@ -195,6 +210,7 @@ function QuestionsProvider({ children }) {
         updateQuestion,
         selectedAnswer,
         setSelectedAnswer,
+        questionsList,
       }}
     >
       {children}

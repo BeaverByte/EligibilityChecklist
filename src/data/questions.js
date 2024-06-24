@@ -17,6 +17,7 @@ export const questionBank = [
       { answer: "Yes", riders: ["MED"], nextQuestion: "medical-2" },
       { answer: "No" },
     ],
+    required: true,
   },
   {
     id: "medical-2",
@@ -30,7 +31,7 @@ export const questionBank = [
   {
     id: "medical-3",
     text: "What is the Medical Network?",
-    elementType: "checkbox",
+    elementType: "radio",
     options: [
       {
         answer: "Aetna (Aetna Signature Administrators)",
@@ -120,27 +121,24 @@ export const questionBank = [
     ],
   },
   {
+    id: "dental-1-a",
     text: "Does the member have Dental?",
     elementType: "radio",
-    options: [
-      { answer: "Yes", porgs: [], riders: ["DEN"] },
-      { answer: "No", porgs: [], riders: [] },
-    ],
+    options: [{ answer: "Yes", riders: ["DEN"] }, { answer: "No" }],
+    required: true,
   },
   {
+    id: "vision-1-a",
     text: "Does the member have Vision?",
     elementType: "radio",
-    options: [
-      { answer: "Yes", porgs: [], riders: ["VIS"] },
-      { answer: "No", porgs: [], riders: [] },
-    ],
+    options: [{ answer: "Yes", riders: ["VIS"] }, { answer: "No" }],
+    required: true,
   },
   {
+    id: "life-1-a",
     text: "Does the member have Life?",
     elementType: "radio",
-    options: [
-      { answer: "Yes", porgs: [], riders: [""] },
-      { answer: "No", porgs: [], riders: [] },
-    ],
+    options: [{ answer: "Yes" }, { answer: "No" }],
+    required: true,
   },
 ];
