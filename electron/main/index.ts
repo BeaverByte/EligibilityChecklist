@@ -9,6 +9,11 @@ import { update } from "./update";
  * Main entry point into electron application
  */
 
+import { mainReduxBridge } from "reduxtron/main";
+import { store } from "shared/store";
+
+const { unsubscribe } = mainReduxBridge(ipcMain, store);
+
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -114,6 +119,8 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+app.on("quit", unsubscribe);
 
 // New window example arg: new windows url
 ipcMain.handle("open-win", (_, arg) => {
