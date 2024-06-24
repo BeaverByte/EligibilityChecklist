@@ -1,6 +1,4 @@
 import { ipcRenderer, contextBridge } from "electron";
-import { preloadReduxBridge } from "reduxtron/preload";
-import type { State, Action } from "../../src/shared/reducers";
 
 /**
  * Executes in renderer process before web content loads, expose API for renderer to use
