@@ -59,21 +59,6 @@ function reducer(state, action) {
         porgs: [...state.porgs, ...(selectedOption?.porgs || [])],
         riders: [...state.riders, ...(selectedOption?.riders || [])],
       };
-    case "city/created":
-      return {
-        ...state,
-        isLoading: false,
-        cities: [...state.cities, action.payload],
-        currentCity: action.payload,
-      };
-
-    case "city/deleted":
-      return {
-        ...state,
-        isLoading: false,
-        cities: state.cities.filter((city) => city.id !== action.payload),
-        currentCity: {},
-      };
 
     case "rejected":
       return {
@@ -106,21 +91,11 @@ function QuestionsProvider({ children }) {
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  // See what riders and porgs are, delete this when prod
-  useEffect(() => {
-    //console.log("Riders are " + riders);
-    //console.log("Porgs are " + porgs);
-  });
-
   /**
    * Update the question state
    */
   const updateQuestion = function () {
     //dispatch({ type: "loading" });
-
-    //testing questionslist
-    console.log("questions list is " + questionsList);
-    console.log();
 
     // Corresponding option that user chose in questionnaire
     const selectedOption = currentQuestion.options.find((option) => {
@@ -177,26 +152,6 @@ function QuestionsProvider({ children }) {
     console.log("Porgs are " + porgs);
     console.log(porgs);
   };
-
-  // const getCity = useCallback(
-  //   async function getCity(id) {
-  //     if (Number(id) === currentCity.id) return;
-
-  //     dispatch({ type: "loading" });
-
-  //     try {
-  //       const res = await fetch(`${BASE_URL}/cities/${id}`);
-  //       const data = await res.json();
-  //       dispatch({ type: "city/loaded", payload: data });
-  //     } catch {
-  //       dispatch({
-  //         type: "rejected",
-  //         payload: "There was an error loading the city...",
-  //       });
-  //     }
-  //   },
-  //   [currentCity.id]
-  // );
 
   return (
     <QuestionsContext.Provider
