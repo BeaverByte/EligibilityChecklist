@@ -15,9 +15,7 @@ function Questionnaire() {
 
   const { id, text, elementType, options } = currentQuestion;
 
-  useEffect(() => {
-    console.log(JSON.stringify(questionsList));
-  }, []);
+  // useEffect(() => {}, []);
 
   const handleSubmit = function (event) {
     event.preventDefault();

@@ -5,7 +5,11 @@ export const questionBank = [
     text: "Error made",
     elementType: "radio",
     options: [
-      { answer: "Yes", riders: ["MED"], nextQuestion: "medical-1" },
+      {
+        answer: "Yes",
+        riders: ["MED"],
+        nextQuestion: "medical-1",
+      },
       { answer: "No" },
     ],
   },
@@ -14,7 +18,12 @@ export const questionBank = [
     text: "Does the member have Medical?",
     elementType: "radio",
     options: [
-      { answer: "Yes", riders: ["MED"], nextQuestion: "medical-2" },
+      {
+        answer: "Yes",
+        riders: ["MED"],
+        nextQuestion: "medical-2",
+        porgs: ["TESTVALUE"],
+      },
       { answer: "No" },
     ],
     required: true,

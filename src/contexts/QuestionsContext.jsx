@@ -51,15 +51,13 @@ function reducer(state, action) {
     case "benefits/updated":
       const selectedOption = action.payload;
 
-      console.log(
-        "Updating benefits with " + JSON.stringify(selectedOption.riders)
-      );
+      console.log("Updating benefits with " + JSON.stringify(selectedOption));
 
       return {
         ...state,
         isLoading: false,
+        porgs: [...state.porgs, ...(selectedOption?.porgs || [])],
         riders: [...state.riders, ...(selectedOption?.riders || [])],
-        porgs: [...state.porgs, selectedOption?.porgs],
       };
     case "city/created":
       return {
@@ -177,6 +175,7 @@ function QuestionsProvider({ children }) {
     console.log("SelectedAnswer is " + selectedAnswer);
     console.log("Riders are " + riders);
     console.log("Porgs are " + porgs);
+    console.log(porgs);
   };
 
   // const getCity = useCallback(

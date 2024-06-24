@@ -6,7 +6,7 @@
 import { UseBenefits } from "../../contexts/QuestionsContext";
 
 function Riders() {
-  const { riders, porgs } = UseBenefits();
+  const { riders } = UseBenefits();
   return (
     <section>
       {riders.length === 0 ? (
