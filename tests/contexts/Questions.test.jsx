@@ -12,4 +12,7 @@ describe("Questions", () => {
     // const button = screen.getByRole("button");
     // expect(button).toBeInTheDocument;
   });
+  it("should find matching question in questions DB", () => {
+    render(<Questionnaire />);
+  });
 });

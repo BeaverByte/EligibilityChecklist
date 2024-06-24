@@ -4,158 +4,9 @@ import {
   useContext,
   useReducer,
   useState,
-  useCallback,
 } from "react";
-import { textChangeRangeIsUnchanged } from "typescript";
 
-// Questions Data
-const questions = [
-  {
-    id: "error",
-    question: "Error made",
-    elementType: "radio",
-    options: [
-      { answer: "Yes", riders: ["MED"], nextQuestion: "medical-1" },
-      { answer: "No" },
-    ],
-  },
-  {
-    id: "medical-1",
-    question: "Does the member have Medical?",
-    elementType: "radio",
-    options: [
-      { answer: "Yes", riders: ["MED"], nextQuestion: "medical-2" },
-      { answer: "No" },
-    ],
-  },
-  {
-    id: "medical-2",
-    question: "Does the member have a high deductible plan?",
-    elementType: "radio",
-    options: [
-      { answer: "Yes", riders: ["HDP"], nextQuestion: "medical-3" },
-      { answer: "No", nextQuestion: "medical-3" },
-    ],
-  },
-  {
-    id: "medical-3",
-    question: "What is the Medical Network?",
-    elementType: "checkbox",
-    options: [
-      {
-        answer: "Aetna (Aetna Signature Administrators)",
-        nextQuestion: "medical-4-a",
-      },
-      {
-        answer: "Cofinity or Cofinity Advantage",
-        riders: ["PHW"],
-        nextQuestion: "medical-4-b",
-      },
-      {
-        answer: "PHCS",
-        riders: ["PHS, AAH, COR"],
-        nextQuestion: "medical-4-c",
-      },
-      {
-        answer: "First Health",
-        riders: ["FHN, AAH, COR"],
-        porgs: ["FHNC"],
-      },
-      ,
-    ],
-  },
-  {
-    id: "medical-4-a",
-    question:
-      "Does the Nidd policy tab show same copay for Generalist and Specialist?",
-    elementType: "radio",
-    options: [
-      {
-        answer: "yes",
-        porgs: ["AETN"],
-        riders: ["AET, AAH, COR"],
-      },
-      {
-        answer: "no",
-        porgs: ["AEPC"],
-        riders: ["AET, AAH, COR"],
-      },
-    ],
-  },
-  {
-    id: "medical-4-b",
-    question: "Does member live in Michigan?",
-    elementType: "radio",
-    options: [
-      {
-        answer: "yes",
-        nextQuestion: "medical-4-b-a",
-      },
-      {
-        answer: "no",
-        porgs: ["CFNA"],
-        riders: ["COD, AAH, COR"],
-      },
-    ],
-  },
-  {
-    id: "medical-4-b-a",
-    question: "Does the member's ZIP code start with 490-492?",
-    elementType: "radio",
-    options: [
-      {
-        answer: "yes",
-        porgs: ["CFNL"],
-        riders: ["CFL, AAH, COR"],
-      },
-      {
-        answer: "no",
-        porgs: ["CFNT"],
-        riders: ["COF, AAH, COR"],
-      },
-    ],
-  },
-  {
-    id: "medical-4-c",
-    question:
-      "Does the Nidd policy tab show same copay for Generalist and Specialist?",
-    elementType: "radio",
-    options: [
-      {
-        answer: "yes",
-        porgs: ["PHCS"],
-      },
-      {
-        answer: "no",
-        porgs: ["PHC1"],
-      },
-    ],
-  },
-  {
-    question: "Does the member have Dental?",
-    elementType: "radio",
-    options: [
-      { answer: "Yes", porgs: [], riders: ["DEN"] },
-      { answer: "No", porgs: [], riders: [] },
-    ],
-  },
-  {
-    question: "Does the member have Vision?",
-    elementType: "radio",
-    options: [
-      { answer: "Yes", porgs: [], riders: ["VIS"] },
-      { answer: "No", porgs: [], riders: [] },
-    ],
-  },
-  {
-    question: "Does the member have Life?",
-    elementType: "radio",
-    options: [
-      { answer: "Yes", porgs: [], riders: [""] },
-      { answer: "No", porgs: [], riders: [] },
-    ],
-  },
-];
+import { questionBank } from "../data/questions";
 
 /**
  * Context to create a provider with centralized updates of state for questions
@@ -165,11 +16,15 @@ const QuestionsContext = createContext();
 
 const initialState = {
   isLoading: false,
-  currentQuestion: questions[1],
+  currentQuestion: questionBank[1],
   riders: [],
   porgs: [],
   error: "",
 };
+
+export function findMatchingQuestionInArray(submittedQuestion, questionArr) {
+  return questionArr.find((question) => question.id === submittedQuestion);
+}
 
 // Dispatched data through "useReducer" will be processed here to update relevant state
 function reducer(state, action) {
@@ -177,22 +32,27 @@ function reducer(state, action) {
     case "loading":
       return { ...state, isLoading: true };
 
-    case "question/loaded":
+    case "question/change":
+      const nextQuestion = action.payload;
+      console.log("currentQuestion getting updated to nextQuestion");
+      return {
+        ...state,
+        isLoading: false,
+        currentQuestion: nextQuestion,
+      };
+
+    case "benefits/updated":
+      const selectedOption = action.payload;
+
       console.log(
-        "currentQuestion state is " + JSON.stringify(state.currentQuestion)
+        "Updating benefits with " + JSON.stringify(selectedOption.riders)
       );
 
       return {
         ...state,
         isLoading: false,
-        riders: [...state.riders, ...(submittedQuestion?.riders || [])],
-        porgs: [...state.porgs, submittedQuestion.porgs],
-        // currentQuestion: searchedQuestion || questions[0],
-      };
-    case "question/updated":
-      return {
-        ...state,
-        currentQuestion: [action.payload],
+        riders: [...state.riders, ...(selectedOption?.riders || [])],
+        porgs: [...state.porgs, selectedOption.porgs],
       };
     case "city/created":
       return {
@@ -222,11 +82,20 @@ function reducer(state, action) {
   }
 }
 
+const dispatchWithPromise = (dispatch, action) => {
+  return new Promise((resolve, reject) => {
+    try {
+      dispatch(action);
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 function QuestionsProvider({ children }) {
-  const [
-    { isLoading, nextQuestion, currentQuestion, riders, porgs, error },
-    dispatch,
-  ] = useReducer(reducer, initialState);
+  const [{ isLoading, currentQuestion, riders, porgs, error }, dispatch] =
+    useReducer(reducer, initialState);
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
@@ -254,20 +123,45 @@ function QuestionsProvider({ children }) {
     // currentQuestion needs to have state updated to be the nextQuestion if exists based on selectedOption if exists
     if (selectedOption && selectedOption.nextQuestion) {
       console.log(
-        "nextQuestion exists in selectedOption " +
-          JSON.stringify(selectedOption)
+        "nextQuestion exists  " + JSON.stringify(selectedOption.nextQuestion)
       );
     } else {
       console.log("nextQuestion not found!");
+      return;
     }
 
+    const nextQuestion = findMatchingQuestionInArray(
+      selectedOption.nextQuestion,
+      questionBank
+    );
+
+    try {
+      dispatch({
+        type: "benefits/updated",
+        payload: selectedOption,
+      });
+    } catch {
+      dispatch({
+        type: "rejected",
+        payload: "There was an error with updating benefits",
+      });
+    }
+
+    try {
+      dispatch({
+        type: "question/change",
+        payload: nextQuestion,
+      });
+    } catch {
+      dispatch({
+        type: "rejected",
+        payload: "There was an error with updating benefits",
+      });
+    }
+    setSelectedAnswer(null);
+    console.log("SelectedAnswer is " + selectedAnswer);
     console.log("Riders are " + riders);
     console.log("Porgs are " + porgs);
-
-    dispatch({
-      type: "question/loaded",
-      payload: nextQuestion,
-    });
   };
 
   // const getCity = useCallback(
@@ -312,9 +206,17 @@ function QuestionsProvider({ children }) {
 // Should be camel case but HMR does not like that
 function UseQuestions() {
   const context = useContext(QuestionsContext);
-  if (context === undefined)
+  if (context === undefined) {
     throw new Error("QuestionsContext was used outside the QuestionsProvider");
+  }
+  return context;
+}
+function UseBenefits() {
+  const context = useContext(QuestionsContext);
+  if (context === undefined) {
+    throw new Error("QuestionsContext was used outside the QuestionsProvider");
+  }
   return context;
 }
 
-export { QuestionsProvider, UseQuestions };
+export { QuestionsProvider, UseQuestions, UseBenefits };

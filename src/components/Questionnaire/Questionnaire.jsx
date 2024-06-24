@@ -8,9 +8,13 @@ function Questionnaire() {
   const { currentQuestion, updateQuestion, selectedAnswer, setSelectedAnswer } =
     UseQuestions();
 
-  const { id, question, elementType, options } = currentQuestion;
+  const { id, text, elementType, options } = currentQuestion;
 
-  function handleSubmit(event) {
+  useEffect(() => {
+    console.log(selectedAnswer);
+  }, []);
+
+  const handleSubmit = function (event) {
     event.preventDefault();
 
     const answer = selectedAnswer ?? null;
@@ -18,19 +22,19 @@ function Questionnaire() {
       console.log("No answer selected, please choose one and try again.");
       return;
     }
-
-    console.log("Answer submitted" + " : " + selectedAnswer);
     updateQuestion(selectedAnswer);
-  }
+  };
 
-  function handleOptionChange(event) {
+  const handleOptionChange = function (event) {
     let chosenAnswer = event.target.value;
+
+    console.log("Setting answer to " + chosenAnswer);
     setSelectedAnswer(chosenAnswer);
-  }
+  };
 
   return (
     <form className={styles.questionnaire} onSubmit={handleSubmit}>
-      <Question question={question} />
+      <Question question={text} />
       <section className="options">
         {options.map((answer, index) => (
           <div key={index}>
@@ -38,7 +42,7 @@ function Questionnaire() {
               value={options[index].answer}
               name="option"
               type={elementType}
-              //checked={selectedAnswer === options.answer}
+              checked={selectedAnswer === options[index].answer}
               onChange={handleOptionChange}
             />
             <label htmlFor={options[index].answer}>
