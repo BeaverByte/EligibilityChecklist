@@ -19,7 +19,7 @@ const initialState = {
   currentQuestion: questionBank[1],
   questionsList: [
     ...questionBank.filter((question) => {
-      if (question.required === true) {
+      if (question.required === true && question != questionBank[1]) {
         return question;
       }
     }),
@@ -58,6 +58,13 @@ function reducer(state, action) {
         isLoading: false,
         porgs: [...state.porgs, ...(selectedOption?.porgs || [])],
         riders: [...state.riders, ...(selectedOption?.riders || [])],
+      };
+
+    case "reset":
+      return {
+        ...state,
+        isLoading: false,
+        ...initialState,
       };
 
     case "rejected":
@@ -102,26 +109,34 @@ function QuestionsProvider({ children }) {
       return option.answer === selectedAnswer;
     });
 
-    console.log("currentQuestion is " + JSON.stringify(currentQuestion));
-
-    console.log("selectedOption is " + JSON.stringify(selectedOption));
-
-    // currentQuestion needs to have state updated to be the nextQuestion if exists based on selectedOption if exists
-    if (selectedOption && selectedOption.nextQuestion) {
-      console.log(
-        "nextQuestion exists  " + JSON.stringify(selectedOption.nextQuestion)
-      );
-    } else {
-      console.log("nextQuestion not found!");
-      return;
+    if (selectedAnswer.required === true) {
+      questionsList.shift();
     }
 
-    // If option does not have nextQuestion continue through questions array
-
-    const nextQuestion = findMatchingQuestionInArray(
-      selectedOption.nextQuestion,
-      questionBank
-    );
+    let nextQuestion = {};
+    // If selectedOption has a nextQuestion
+    if (selectedOption && selectedOption.nextQuestion) {
+      nextQuestion = findMatchingQuestionInArray(
+        selectedOption.nextQuestion,
+        questionBank
+      );
+    } else {
+      // Choose question from remainder if selected does not have nextQuestion
+      console.log("nextQuestion not found! Cycling through questionsList");
+      console.log("Aux questions list size is " + questionsList.length);
+      if (questionsList.length != 0) {
+        console.log("nextQuestion pulled from list " + questionsList[0]);
+        nextQuestion = questionsList[0];
+        console.log(
+          "nextQuestion is now this from the sidelist " +
+            JSON.stringify(nextQuestion)
+        );
+        // Remove first Question
+        questionsList.shift();
+      } else {
+        console.log("Problem! No Questions remaining in questionsList!");
+      }
+    }
 
     try {
       dispatch({

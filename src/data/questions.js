@@ -22,7 +22,6 @@ export const questionBank = [
         answer: "Yes",
         riders: ["MED"],
         nextQuestion: "medical-2",
-        porgs: ["TESTVALUE"],
       },
       { answer: "No" },
     ],
@@ -130,24 +129,103 @@ export const questionBank = [
     ],
   },
   {
-    id: "dental-1-a",
+    id: "dental-1",
     text: "Does the member have Dental?",
     elementType: "radio",
-    options: [{ answer: "Yes", riders: ["DEN"] }, { answer: "No" }],
+    options: [
+      { answer: "Yes", riders: ["DEN"], nextQuestion: "dental-2" },
+      { answer: "No" },
+    ],
     required: true,
+  },
+  {
+    id: "dental-2",
+    text: "What is the member's Dental network?",
+    elementType: "radio",
+    options: [
+      { answer: "Dentemax", riders: ["DNM"], nextQuestion: "dental-3" },
+      {
+        answer: "Aetna Dental Administrators (ASA)",
+        riders: ["AED"],
+        nextQuestion: "dental-6",
+      },
+    ],
+  },
+  {
+    id: "dental-6",
+    text: "Does the Nidd policy tab show NNV Rider?",
+    elementType: "radio",
+    options: [
+      { answer: "Yes", riders: ["NNV"], nextQuestion: "dental-7" },
+      { answer: "No", porgs: ["AEDN"], nextQuestion: "dental-5" },
+    ],
+  },
+  {
+    id: "dental-7",
+    text: "Is Dental Out of Network Co-Insurance 10% or less?",
+    elementType: "radio",
+    options: [
+      { answer: "Yes", porgs: ["AEDN"], nextQuestion: "dental-5" },
+      { answer: "No", riders: ["AEDM"] },
+    ],
+  },
+  {
+    id: "dental-3",
+    text: "Does the Nidd policy tab show NNV Rider?",
+    elementType: "radio",
+    options: [
+      { answer: "Yes", riders: ["NNV"], nextQuestion: "dental-4" },
+      { answer: "No", porgs: ["DNMX"] },
+    ],
+  },
+  {
+    id: "dental-4",
+    text: "Is Dental Out of Network Co-Insurance 10% or less?",
+    elementType: "radio",
+    options: [
+      { answer: "Yes", porgs: ["DNMX"], nextQuestion: "dental-5" },
+      { answer: "No", porgs: ["DXMC"], nextQuestion: "dental-5" },
+    ],
+  },
+  {
+    id: "dental-5",
+    text: "Does member pay all for Dental?",
+    elementType: "radio",
+    options: [{ answer: "Yes", riders: ["VDN"] }, { answer: "No" }],
   },
   {
     id: "vision-1-a",
     text: "Does the member have Vision?",
     elementType: "radio",
-    options: [{ answer: "Yes", riders: ["VIS"] }, { answer: "No" }],
+    options: [
+      { answer: "Yes", riders: ["VIS"], nextQuestion: "vision-2" },
+      { answer: "No" },
+    ],
     required: true,
+  },
+  {
+    id: "vision-2",
+    text: "Does group have Eyemed?",
+    elementType: "radio",
+    options: [
+      { answer: "Yes", riders: ["EYE"], nextQuestion: "vision-3" },
+      { answer: "No", nextQuestion: "vision-3" },
+    ],
+  },
+  {
+    id: "vision-3",
+    text: "Does the member Pay All for Vision?",
+    elementType: "radio",
+    options: [{ answer: "Yes", riders: ["VVN"] }, { answer: "No" }],
   },
   {
     id: "life-1-a",
     text: "Does the member have Life?",
     elementType: "radio",
-    options: [{ answer: "Yes" }, { answer: "No" }],
+    options: [
+      { answer: "Yes", riders: ["LAD"] },
+      { answer: "No", riders: ["LIF"] },
+    ],
     required: true,
   },
 ];
