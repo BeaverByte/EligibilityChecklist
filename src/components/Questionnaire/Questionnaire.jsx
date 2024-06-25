@@ -40,6 +40,15 @@ function Questionnaire() {
     setSelectedAnswer(chosenAnswer);
   };
 
+  if (!options || options.length === 0) {
+    return (
+      <div className={styles.questionnaire}>
+        <h1>Questions complete</h1>
+        <Button type="reset">Reset</Button>
+      </div>
+    );
+  }
+
   return (
     <form className={styles.questionnaire} onSubmit={handleSubmit}>
       <Question question={text} />

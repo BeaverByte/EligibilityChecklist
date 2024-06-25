@@ -52,12 +52,12 @@ export const questionBank = [
       },
       {
         answer: "PHCS",
-        riders: ["PHS, AAH, COR"],
+        riders: ["PHS", "AAH", "COR"],
         nextQuestion: "medical-4-c",
       },
       {
         answer: "First Health",
-        riders: ["FHN, AAH, COR"],
+        riders: ["FHN", "AAH", "COR"],
         porgs: ["FHNC"],
       },
       ,
@@ -71,12 +71,12 @@ export const questionBank = [
       {
         answer: "yes",
         porgs: ["AETN"],
-        riders: ["AET, AAH, COR"],
+        riders: ["AET", "AAH", "COR"],
       },
       {
         answer: "no",
         porgs: ["AEPC"],
-        riders: ["AET, AAH, COR"],
+        riders: ["AET", "AAH", "COR"],
       },
     ],
   },
@@ -92,7 +92,7 @@ export const questionBank = [
       {
         answer: "no",
         porgs: ["CFNA"],
-        riders: ["COD, AAH, COR"],
+        riders: ["COD", "AAH", "COR"],
       },
     ],
   },
@@ -104,12 +104,12 @@ export const questionBank = [
       {
         answer: "yes",
         porgs: ["CFNL"],
-        riders: ["CFL, AAH, COR"],
+        riders: ["CFL", "AAH", "COR"],
       },
       {
         answer: "no",
         porgs: ["CFNT"],
-        riders: ["COF, AAH, COR"],
+        riders: ["COF", "AAH", "COR"],
       },
     ],
   },
@@ -166,7 +166,7 @@ export const questionBank = [
     elementType: "radio",
     options: [
       { answer: "Yes", porgs: ["AEDN"], nextQuestion: "dental-5" },
-      { answer: "No", riders: ["AEDM"] },
+      { answer: "No", porgs: ["AEDM"] },
     ],
   },
   {
@@ -219,13 +219,19 @@ export const questionBank = [
     options: [{ answer: "Yes", riders: ["VVN"] }, { answer: "No" }],
   },
   {
-    id: "life-1-a",
+    id: "life-1",
     text: "Does the member have Life?",
+    elementType: "radio",
+    options: [{ answer: "Yes", nextQuestion: "life-2" }, { answer: "No" }],
+    required: true,
+  },
+  {
+    id: "life-2",
+    text: "Does the member have AD&D?",
     elementType: "radio",
     options: [
       { answer: "Yes", riders: ["LAD"] },
       { answer: "No", riders: ["LIF"] },
     ],
-    required: true,
   },
 ];

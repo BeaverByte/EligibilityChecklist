@@ -60,6 +60,12 @@ function reducer(state, action) {
         riders: [...state.riders, ...(selectedOption?.riders || [])],
       };
 
+    case "question/end":
+      return {
+        ...state,
+        isLoading: false,
+      };
+
     case "reset":
       return {
         ...state,
@@ -135,6 +141,10 @@ function QuestionsProvider({ children }) {
         questionsList.shift();
       } else {
         console.log("Problem! No Questions remaining in questionsList!");
+        dispatch({
+          type: "question/end",
+          payload: "",
+        });
       }
     }
 
