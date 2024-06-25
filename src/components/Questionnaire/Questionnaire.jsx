@@ -11,11 +11,10 @@ function Questionnaire() {
     selectedAnswer,
     setSelectedAnswer,
     questionsList,
+    resetQuestionnaire,
   } = UseQuestions();
 
   const { id, text, elementType, options } = currentQuestion;
-
-  // useEffect(() => {}, []);
 
   const handleSubmit = function (event) {
     event.preventDefault();
@@ -40,17 +39,24 @@ function Questionnaire() {
     setSelectedAnswer(chosenAnswer);
   };
 
+  const handleReset = function (event) {
+    resetQuestionnaire();
+  };
+
+  // If answer has no options, then questions exhausted
   if (!options || options.length === 0) {
     return (
       <div className={styles.questionnaire}>
         <h1>Questions complete</h1>
-        <Button type="reset">Reset</Button>
+        <Button type="reset" onClick={handleReset}>
+          Reset
+        </Button>
       </div>
     );
   }
 
   return (
-    <form className={styles.questionnaire} onSubmit={handleSubmit}>
+    <form className={styles.questionnaire}>
       <Question question={text} />
       <section className="options">
         {options.map((answer, index) => (
@@ -68,8 +74,12 @@ function Questionnaire() {
           </div>
         ))}
       </section>
-      <Button type="previous">Previous</Button>
-      <Button type="next">Next</Button>
+      {/* <Button type="button" onClick={handlePrevious}>
+        Previous
+      </Button> */}
+      <Button type="button" onClick={handleSubmit}>
+        Next
+      </Button>
     </form>
   );
 }

@@ -71,6 +71,13 @@ function reducer(state, action) {
         ...state,
         isLoading: false,
         ...initialState,
+        questionsList: [
+          ...questionBank.filter((question) => {
+            if (question.required === true && question != questionBank[1]) {
+              return question;
+            }
+          }),
+        ],
       };
 
     case "rejected":
@@ -103,6 +110,10 @@ function QuestionsProvider({ children }) {
   ] = useReducer(reducer, initialState);
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+  const resetQuestionnaire = function () {
+    dispatch({ type: "reset" });
+  };
 
   /**
    * Update the question state
@@ -190,6 +201,7 @@ function QuestionsProvider({ children }) {
         selectedAnswer,
         setSelectedAnswer,
         questionsList,
+        resetQuestionnaire,
       }}
     >
       {children}

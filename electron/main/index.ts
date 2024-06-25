@@ -55,6 +55,7 @@ async function createWindow() {
   win = new BrowserWindow({
     title: "Main window",
     icon: path.join(process.env.VITE_PUBLIC, "favicon.ico"),
+    // icon: "C:/Users/Near/Desktop/Git Projects/eligibility-checklist/public/favicon.ico)",
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -64,11 +65,11 @@ async function createWindow() {
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       // contextIsolation: false,
     },
-    minWidth: 700,
-    minHeight: 700,
-    // resizable: false,
-    width: 700,
-    height: 700,
+    minWidth: 900,
+    minHeight: 600,
+    resizable: false,
+    width: 900,
+    height: 600,
   });
 
   if (VITE_DEV_SERVER_URL) {

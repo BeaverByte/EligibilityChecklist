@@ -9,6 +9,9 @@
   },
   extraResources: ["./eligibility.db"],
   files: ["dist-electron", "dist"],
+  fileAssociations: [
+    icon: ""
+  ],
   mac: {
     artifactName: "${productName}_${version}.${ext}",
     target: ["dmg", "zip"],

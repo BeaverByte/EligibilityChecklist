@@ -6,11 +6,10 @@ export const questionBank = [
     elementType: "radio",
     options: [
       {
-        answer: "Yes",
-        riders: ["MED"],
+        answer: "Please submit option to continue",
+        riders: [],
         nextQuestion: "medical-1",
       },
-      { answer: "No" },
     ],
   },
   {
@@ -69,12 +68,12 @@ export const questionBank = [
     elementType: "radio",
     options: [
       {
-        answer: "yes",
+        answer: "Yes",
         porgs: ["AETN"],
         riders: ["AET", "AAH", "COR"],
       },
       {
-        answer: "no",
+        answer: "No",
         porgs: ["AEPC"],
         riders: ["AET", "AAH", "COR"],
       },

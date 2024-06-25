@@ -51,23 +51,48 @@ h2 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 4px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.35s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #6fd0e8;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+@keyframes shadow-inset-center {
+  0% {
+    letter-spacing: -0.2em;
+    opacity: 0.8;
+  }
+  100% {
+    letter-spacing: normal;
+    opacity: 1;
+  }
+}
+@keyframes border-color-increase {
+  0% {
+    border-color: #1a1a1a;
+  }
+  100% {
+    border-width: 8px;
+    border-color: #6fd0e8;
+  }
+}
+form:hover {
+  border-color: #6fd0e8;
+  border-width: 6px;
+  animation: border-color-increase 2.4s cubic-bezier();
+  animation: shadow-inset-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
 code {
   background-color: #1a1a1a;
   padding: 2px 4px;
@@ -80,7 +105,7 @@ code {
 }
 
 #app {
-  max-width: 1280px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
