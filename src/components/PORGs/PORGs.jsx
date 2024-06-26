@@ -10,8 +10,8 @@ function PORGs() {
   return (
     <dl>
       {porgs.map((porg, index) => (
-        <div key={index}>
-          <dt>{`PORG ${index + 1}`}</dt>
+        <div className="porg-container" key={index}>
+          <dt className="porg">{`PORG ${index + 1}`}</dt>
           <dd>{porg}</dd>
         </div>
       ))}

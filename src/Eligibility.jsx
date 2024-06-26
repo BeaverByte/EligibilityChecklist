@@ -14,7 +14,6 @@ function Eligibility() {
           <Dates />
         </div> */}
       <div className="riders">
-        <h2>PORG & Riders</h2>
         <PORGs />
         <Riders />
       </div>

@@ -3,15 +3,14 @@
  */
 {
   appId: "YourAppID",
+  icon: "build/icon.ico",
   asar: true,
   directories: {
+    buildResources: "resources",
     output: "release/${version}",
   },
   extraResources: ["./eligibility.db"],
   files: ["dist-electron", "dist"],
-  fileAssociations: [
-    icon: ""
-  ],
   mac: {
     artifactName: "${productName}_${version}.${ext}",
     target: ["dmg", "zip"],
@@ -30,6 +29,7 @@
     perMachine: false,
     allowToChangeInstallationDirectory: false,
     deleteAppDataOnUninstall: false,
+    installerIcon: "build/icon.ico",
   },
   publish: {
     provider: "generic",

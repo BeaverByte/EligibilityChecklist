@@ -1,4 +1,18 @@
 /* Styling for questionnaire */
 .questionnaire {
   border-style: solid;
+  margin-bottom: 1em;
+  min-width: 700px;
+  min-height: 14em;
+  padding-bottom: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 800px;
+  max-height: 14em;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  /* box-sizing: border-box; */
 }

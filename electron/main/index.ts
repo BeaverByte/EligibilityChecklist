@@ -50,7 +50,7 @@ if (!app.requestSingleInstanceLock()) {
 let win: BrowserWindow | null = null;
 const preload = path.join(__dirname, "../preload/index.mjs");
 const indexHtml = path.join(RENDERER_DIST, "index.html");
-
+function showIconPath() {}
 async function createWindow() {
   win = new BrowserWindow({
     title: "Main window",
@@ -81,8 +81,10 @@ async function createWindow() {
     win.loadFile(indexHtml);
   }
 
+  const pathToIcon = path.join(process.env.VITE_PUBLIC, "favicon.ico");
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
+    // win?.webContents.send("main-icon-path", pathToIcon);
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
 
