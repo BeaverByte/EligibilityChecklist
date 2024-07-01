@@ -67,6 +67,7 @@ function reducer(state, action) {
       };
 
     case "reset":
+      console.log("Resetting Questionnaire state");
       return {
         ...state,
         isLoading: false,

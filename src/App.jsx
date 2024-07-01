@@ -4,9 +4,12 @@ import logoVite from "./assets/logo-vite.svg";
 import logoElectron from "./assets/logo-electron.svg";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Eligibility from "./Eligibility";
+import Eligibility from "./pages/Eligibility/Eligibility";
 import Home from "./pages/Home/Home";
 import { ROUTES } from "./pages/routes";
+import { QuestionsProvider } from "./contexts/QuestionsContext";
+import EffectiveDate from "./pages/EffectiveDate/EffectiveDate";
+import { EffectiveDateProvider } from "./contexts/EffectiveDateContext";
 
 /**
  * The main React component that holds and presents all other components
@@ -15,12 +18,17 @@ import { ROUTES } from "./pages/routes";
 
 function App() {
   return (
-    <HashRouter>
-      <Routes>
-        <Route path={ROUTES.ROOT} element={<Home />} />
-        <Route path={ROUTES.ELIGIBILITY} element={<Eligibility />} />
-      </Routes>
-    </HashRouter>
+    <EffectiveDateProvider>
+      <QuestionsProvider>
+        <HashRouter>
+          <Routes>
+            <Route path={ROUTES.ROOT} element={<Home />} />
+            <Route path={ROUTES.ELIGIBILITY} element={<Eligibility />} />
+            <Route path={ROUTES.EFFECTIVEDATE} element={<EffectiveDate />} />
+          </Routes>
+        </HashRouter>
+      </QuestionsProvider>
+    </EffectiveDateProvider>
   );
 }
 

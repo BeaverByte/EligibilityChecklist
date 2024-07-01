@@ -32,7 +32,7 @@ a:hover {
 }
 
 body {
-  margin: 2em;
+  margin: 1em;
   display: flex;
   place-items: center;
   min-width: 320px;

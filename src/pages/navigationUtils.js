@@ -1,10 +1,10 @@
 import { ROUTES } from "./routes";
+import { UseQuestions } from "../contexts/QuestionsContext";
+
 export function handleNavigation(e, navigate) {
   e.preventDefault();
 
   const buttonType = e.target.name;
-
-  // Code here to handle button clicks
 
   switch (buttonType) {
     case "eligibility":
@@ -13,6 +13,10 @@ export function handleNavigation(e, navigate) {
 
     case "home":
       navigate(ROUTES.ROOT);
+      break;
+
+    case "effectivedate":
+      navigate(ROUTES.EFFECTIVEDATE);
       break;
 
     default:
