@@ -2,14 +2,27 @@ import { useState } from "react";
 import UpdateElectron from "@/components/update";
 import logoVite from "./assets/logo-vite.svg";
 import logoElectron from "./assets/logo-electron.svg";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Eligibility from "./Eligibility";
+import Home from "./pages/Home/Home";
+import { ROUTES } from "./pages/routes";
 
 /**
  * The main React component that holds and presents all other components
  * @component
  */
 
-function App() {}
+function App() {
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path={ROUTES.ROOT} element={<Home />} />
+        <Route path={ROUTES.ELIGIBILITY} element={<Eligibility />} />
+      </Routes>
+    </HashRouter>
+  );
+}
 
 // App below is part of boilerplate
 // function App() {

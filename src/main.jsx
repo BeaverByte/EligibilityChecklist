@@ -11,7 +11,7 @@ import Eligibility from "./Eligibility";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Eligibility />
+    <App />
   </React.StrictMode>
 );
 

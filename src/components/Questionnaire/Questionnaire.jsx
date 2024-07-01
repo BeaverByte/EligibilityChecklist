@@ -77,7 +77,7 @@ function Questionnaire() {
       {/* <Button type="button" onClick={handlePrevious}>
         Previous
       </Button> */}
-      <Button type="button" onClick={handleSubmit}>
+      <Button name="reset" type="button" onClick={handleSubmit}>
         Next
       </Button>
     </form>
