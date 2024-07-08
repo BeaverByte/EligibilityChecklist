@@ -72,7 +72,11 @@ function EffectiveDate() {
         <div>
           <label>Days</label>
           <input
-            disabled={months !== ""}
+            disabled={
+              months !== "" ||
+              provision === "Open Enrollment" ||
+              provision === "Loss of Coverage"
+            }
             name={EFFECTIVEDATE.DAYS}
             onChange={handleInputChange}
           ></input>
@@ -80,7 +84,11 @@ function EffectiveDate() {
         <div>
           <label>Months</label>
           <input
-            disabled={days !== ""}
+            disabled={
+              days !== "" ||
+              provision === "Open Enrollment" ||
+              provision === "Loss of Coverage"
+            }
             name={EFFECTIVEDATE.MONTHS}
             onChange={handleInputChange}
           ></input>
