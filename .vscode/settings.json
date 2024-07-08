@@ -16,9 +16,12 @@
     "Cofinity",
     "effectivedate",
     "FHNC",
+    "HIREDATE",
     "Nidd",
     "PHCS",
     "PORG",
-    "PORGs"
+    "PORGs",
+    "QUALIFYINGEVENTDATE",
+    "SIGNATUREDATE"
   ]
 }

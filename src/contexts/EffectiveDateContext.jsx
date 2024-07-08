@@ -1,4 +1,12 @@
 import { createContext, useContext, useReducer, useState } from "react";
+import {
+  parseISO,
+  isValid,
+  isDate,
+  addMonths,
+  format,
+  startOfMonth,
+} from "date-fns";
 
 /**
  * Context to create a provider with centralized updates of state for effective date
@@ -21,15 +29,36 @@ const initialState = {
 
 // Dispatched data through "useReducer" will be processed here to update relevant state
 function reducer(state, action) {
+  console.log(`Action in reducer is ${JSON.stringify(action)}`);
   switch (action.type) {
     case "loading":
       return { ...state, isLoading: true };
 
-    case "effective-date/hire-date/update":
-      const hireDate = action.payload;
-      return {
+    case "update-field":
+      const { field, value } = action.payload;
+
+      const newState = {
         ...state,
-        hireDate: hireDate,
+        [field]: value,
+      };
+
+      const parsedHireDate = parseISO(newState.hireDate);
+
+      //const formattedDate = format(parsedDate, "yyyy-MM-dd");
+
+      const eligibilityDate = calculateEligibilityDate(
+        parsedHireDate,
+        newState.days,
+        newState.months,
+        newState.provision,
+        newState.qualifyingEventDate
+      );
+
+      const throwAwayVariable = JSON.stringify(state);
+
+      return {
+        ...newState,
+        eligibilityDate: eligibilityDate,
         isLoading: false,
       };
 
@@ -57,6 +86,7 @@ function EffectiveDateProvider({ children }) {
   const [
     {
       isLoading,
+      eligibilityDate,
       hireDate,
       days,
       months,
@@ -68,8 +98,9 @@ function EffectiveDateProvider({ children }) {
     dispatch,
   ] = useReducer(reducer, initialState);
 
-  const updateHireDate = function (e) {
-    dispatch({ type: "effective-date/hire-date/update", payload: e });
+  const updateField = function (field, value) {
+    console.log(`Updating ${field} to ${value}`);
+    dispatch({ type: "update-field", payload: { field, value } });
   };
 
   const resetEffectiveDateForm = function () {
@@ -87,18 +118,47 @@ function EffectiveDateProvider({ children }) {
     <EffectiveDateContext.Provider
       value={{
         isLoading,
-        updateHireDate,
+        updateField,
+        hireDate,
         days,
         months,
         provision,
         qualifyingEventDate,
         signatureDate,
+        eligibilityDate,
         error,
       }}
     >
       {children}
     </EffectiveDateContext.Provider>
   );
+}
+
+function calculateEligibilityDate(
+  hireDate,
+  days,
+  months,
+  provision,
+  qualifyingEventDate
+) {
+  if (!isValid(hireDate)) {
+    console.log(`${hireDate} is not date`);
+    return;
+  }
+  if (days && months) {
+    console.log("No months or days entered");
+  }
+
+  // If there is a hire date
+  // If days input
+  // Add days to hiredate
+  // If months input
+  // Add months to hiredate
+
+  // Date Of means date not not change
+
+  // First of Month means
+  return format(hireDate, "MM-dd-yyyy");
 }
 
 // Function to export that provides access to context, no strictly necessary but cleaner
