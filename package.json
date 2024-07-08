@@ -26,7 +26,7 @@
   "dependencies": {
     "@types/react-router": "^5.1.20",
     "better-sqlite3": "^11.1.2",
-    "date-fns": "^3.6.0",
+    "dayjs": "^1.11.11",
     "electron-updater": "^6.1.8",
     "framer-motion": "^11.2.13",
     "jsdoc": "^4.0.3",

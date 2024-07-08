@@ -5,6 +5,9 @@ import { UseEffectiveDate } from "../../contexts/EffectiveDateContext";
 import EligibilityDate from "../../components/EligibilityDate/EligibilityDate";
 
 import styles from "../EffectiveDate/EffectiveDate.module.css";
+import LateDate from "../../components/LateDate/LateDate";
+
+import dayjs from "dayjs";
 
 function EffectiveDate() {
   const navigate = useNavigate();
@@ -17,6 +20,8 @@ function EffectiveDate() {
     provision,
     qualifyingEventDate,
     signatureDate,
+    lateDate,
+    resetEffectiveDateForm,
   } = UseEffectiveDate();
 
   const EFFECTIVEDATE = {
@@ -27,6 +32,15 @@ function EffectiveDate() {
     QUALIFYINGEVENTDATE: "qualifyingEventDate",
     SIGNATUREDATE: "signatureDate",
   };
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    resetEffectiveDateForm();
+
+    const buttonType = e.target.name;
+
+    handleNavigation(e, navigate);
+  }
 
   const handleInputChange = function (event) {
     const chosenAnswer = event.target.name;
@@ -41,11 +55,7 @@ function EffectiveDate() {
 
   return (
     <div>
-      <Button
-        onClick={(e) => handleNavigation(e, navigate)}
-        type="back"
-        name="home"
-      >
+      <Button onClick={handleSubmit} type="back" name="home">
         Back to menu
       </Button>
       <h1>Effective Date</h1>
@@ -59,24 +69,28 @@ function EffectiveDate() {
       </div>
       <h2>Waiting Period</h2>
       <div className={styles.waitingperiod}>
-        <label>Days</label>
-        <input
-          disabled={months !== ""}
-          name={EFFECTIVEDATE.DAYS}
-          onChange={handleInputChange}
-        ></input>
-        <label>Months</label>
-        <input
-          disabled={days !== ""}
-          name={EFFECTIVEDATE.MONTHS}
-          onChange={handleInputChange}
-        ></input>
+        <div>
+          <label>Days</label>
+          <input
+            disabled={months !== ""}
+            name={EFFECTIVEDATE.DAYS}
+            onChange={handleInputChange}
+          ></input>
+        </div>
+        <div>
+          <label>Months</label>
+          <input
+            disabled={days !== ""}
+            name={EFFECTIVEDATE.MONTHS}
+            onChange={handleInputChange}
+          ></input>
+        </div>
       </div>
       <div>
         <label>Provision</label>
         <select name={EFFECTIVEDATE.PROVISION} onChange={handleInputChange}>
-          <option>Date Of</option>
-          <option>First Of Month</option>
+          <option>Date of</option>
+          <option>First of Month</option>
           <option>Open Enrollment</option>
           <option>Loss of Coverage</option>
         </select>
@@ -85,26 +99,33 @@ function EffectiveDate() {
         <label>Qualifying Event Date</label>
         <input
           type="date"
+          disabled={
+            provision !== "Open Enrollment" && provision !== "Loss of Coverage"
+          }
           name={EFFECTIVEDATE.QUALIFYINGEVENTDATE}
           onChange={handleInputChange}
         ></input>
       </div>
-      <div>
+      <div className={styles.signaturedate}>
         <label>Signature Date</label>
         <input
           type="date"
           name={EFFECTIVEDATE.SIGNATUREDATE}
           onChange={handleInputChange}
         ></input>
+        {dayjs(signatureDate).isAfter(dayjs(lateDate)) ? <p>LATE</p> : <></>}
       </div>
-      <label>Eligibility Date</label>
-      <EligibilityDate
-        className={styles.eligibility}
-        eligibilityDate={eligibilityDate}
-      ></EligibilityDate>
-      <div>
+      <div className={styles.eligibility}>
+        <label>Eligibility Date</label>
+        <EligibilityDate
+          className={styles.eligibility}
+          eligibilityDate={eligibilityDate}
+        ></EligibilityDate>
+      </div>
+      <div className={styles.latedate}>
         <label>Late Date</label>
-        <p>12/1/2020</p>
+        <LateDate className={styles.latedate} lateDate={lateDate}></LateDate>
+        {dayjs(signatureDate).isAfter(dayjs(lateDate)) ? <p>LATE</p> : <></>}
       </div>
     </div>
   );

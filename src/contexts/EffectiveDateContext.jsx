@@ -1,12 +1,6 @@
 import { createContext, useContext, useReducer, useState } from "react";
-import {
-  parseISO,
-  isValid,
-  isDate,
-  addMonths,
-  format,
-  startOfMonth,
-} from "date-fns";
+
+import dayjs from "dayjs";
 
 /**
  * Context to create a provider with centralized updates of state for effective date
@@ -19,7 +13,7 @@ const initialState = {
   hireDate: "",
   days: "",
   months: "",
-  provision: "",
+  provision: "Date of",
   qualifyingEventDate: "",
   signatureDate: "",
   eligibilityDate: "",
@@ -42,9 +36,7 @@ function reducer(state, action) {
         [field]: value,
       };
 
-      const parsedHireDate = parseISO(newState.hireDate);
-
-      //const formattedDate = format(parsedDate, "yyyy-MM-dd");
+      const parsedHireDate = dayjs(newState.hireDate);
 
       const eligibilityDate = calculateEligibilityDate(
         parsedHireDate,
@@ -54,16 +46,24 @@ function reducer(state, action) {
         newState.qualifyingEventDate
       );
 
+      const lateDate = calculateLateDate(
+        eligibilityDate,
+        newState.days,
+        newState.months,
+        newState.provision,
+        newState.qualifyingEventDate
+      );
+
       return {
         ...newState,
         eligibilityDate: eligibilityDate,
+        lateDate: lateDate,
         isLoading: false,
       };
 
     case "reset":
-      console.log("Resetting Questionnaire state");
+      console.log("Resetting Effective Date state");
       return {
-        ...state,
         isLoading: false,
         ...initialState,
       };
@@ -91,6 +91,7 @@ function EffectiveDateProvider({ children }) {
       provision,
       qualifyingEventDate,
       signatureDate,
+      lateDate,
       error,
     },
     dispatch,
@@ -118,6 +119,8 @@ function EffectiveDateProvider({ children }) {
         signatureDate,
         eligibilityDate,
         error,
+        lateDate,
+        resetEffectiveDateForm,
       }}
     >
       {children}
@@ -132,26 +135,81 @@ function calculateEligibilityDate(
   provision,
   qualifyingEventDate
 ) {
-  if (!isValid(hireDate)) {
+  if (!dayjs(hireDate).isValid()) {
     console.log(`${hireDate} is not date`);
     return;
   }
-  if (days && months) {
-    console.log("No months or days entered");
+  console.log(`${hireDate} is valid`);
+  // let eligibilityDate = format(hireDate, "yyyy-MM-dd");
+  let eligibilityDate = hireDate;
+
+  console.log(`HireDate before provision is ${eligibilityDate}`);
+  switch (provision) {
+    case "Date of":
+      if (days) {
+        eligibilityDate = eligibilityDate.add(days, "day");
+      }
+      if (months) {
+        eligibilityDate = eligibilityDate.add(months, "month");
+      }
+      break;
+    case "First of Month":
+      if (days) {
+        eligibilityDate = eligibilityDate
+          .add(days, "day")
+          .add(1, "month")
+          .startOf("month");
+      }
+      if (months) {
+        eligibilityDate = eligibilityDate
+          .add(months, "month")
+          .add(1, "month")
+          .startOf("month");
+      }
+      break;
+    case "Open Enrollment":
+      eligibilityDate = qualifyingEventDate;
+      break;
+    case "Loss of Coverage":
+      eligibilityDate = qualifyingEventDate;
+      break;
+    default:
+      break;
+  }
+  console.log(`Returning this date ${eligibilityDate}`);
+  return dayjs(eligibilityDate).format("MM-DD-YYYY");
+}
+function calculateLateDate(
+  eligibilityDate,
+  days,
+  months,
+  provision,
+  qualifyingEventDate
+) {
+  let lateDate = dayjs(eligibilityDate);
+  qualifyingEventDate = dayjs(qualifyingEventDate);
+  console.log(`LateDate is ${lateDate}`);
+  const standardDaysTimeliness = 31;
+  switch (provision) {
+    case "Date of":
+      lateDate = lateDate.add(standardDaysTimeliness, "day");
+
+      break;
+    case "First of Month":
+      lateDate = lateDate.add(standardDaysTimeliness, "day");
+      break;
+    case "Open Enrollment":
+      lateDate = qualifyingEventDate;
+      break;
+    case "Loss of Coverage":
+      lateDate = qualifyingEventDate.add(standardDaysTimeliness, "day");
+      break;
+    default:
+      break;
   }
 
-  // If there is a hire date
-  // If days input
-  // Add days to hiredate
-  // If months input
-  // Add months to hiredate
-
-  // Date Of means date not not change
-
-  // First of Month means
-  return format(hireDate, "MM-dd-yyyy");
+  return dayjs(lateDate).format("MM-DD-YYYY");
 }
-
 // Function to export that provides access to context, no strictly necessary but cleaner
 // Should be camel case but HMR does not like that
 function UseEffectiveDate() {

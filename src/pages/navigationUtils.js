@@ -1,5 +1,4 @@
 import { ROUTES } from "./routes";
-import { UseQuestions } from "../contexts/QuestionsContext";
 
 export function handleNavigation(e, navigate) {
   e.preventDefault();

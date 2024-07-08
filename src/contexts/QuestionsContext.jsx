@@ -93,17 +93,6 @@ function reducer(state, action) {
   }
 }
 
-const dispatchWithPromise = (dispatch, action) => {
-  return new Promise((resolve, reject) => {
-    try {
-      dispatch(action);
-      resolve();
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
-
 function QuestionsProvider({ children }) {
   const [
     { isLoading, currentQuestion, questionsList, riders, porgs, error },

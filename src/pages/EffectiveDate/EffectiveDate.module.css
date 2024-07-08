@@ -1,10 +1,28 @@
 .eligibility {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
 }
-.waitingperiod label {
-  display: flex;
-  align-items: flex-end;
-  /* align-items: center; */
-}
+
 .waitingperiod {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-evenly;
+  column-gap: 9em;
+}
+
+.latedate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+}
+
+.signaturedate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
 }
