@@ -54,8 +54,6 @@ function reducer(state, action) {
         newState.qualifyingEventDate
       );
 
-      const throwAwayVariable = JSON.stringify(state);
-
       return {
         ...newState,
         eligibilityDate: eligibilityDate,
@@ -105,13 +103,6 @@ function EffectiveDateProvider({ children }) {
 
   const resetEffectiveDateForm = function () {
     dispatch({ type: "reset" });
-  };
-
-  /**
-   * Update the effective date state
-   */
-  const updateEffectiveDate = function () {
-    // update code here
   };
 
   return (
