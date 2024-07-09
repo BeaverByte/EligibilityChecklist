@@ -1,6 +1,6 @@
 {
   "name": "eligibility-checklist",
-  "version": "0.2.0-alpha",
+  "version": "0.2.0",
   "icon": "public/favicon.ico",
   "main": "dist-electron/main/index.js",
   "description": "Checklist that guides member eligibility",
@@ -27,7 +27,7 @@
     "@types/react-router": "^5.1.20",
     "better-sqlite3": "^11.1.2",
     "dayjs": "^1.11.11",
-    "electron-updater": "^6.1.8",
+    "electron-updater": "^6.3.0-alpha.6",
     "framer-motion": "^11.2.13",
     "jsdoc": "^4.0.3",
     "react-router-dom": "^6.24.0"
