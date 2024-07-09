@@ -1,6 +1,7 @@
 {
   "name": "eligibility-checklist",
   "version": "0.2.0",
+  "icon": "public/favicon.ico",
   "main": "dist-electron/main/index.js",
   "description": "Checklist that guides member eligibility",
   "author": "beaverbyte",
