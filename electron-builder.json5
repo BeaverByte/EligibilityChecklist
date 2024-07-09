@@ -12,7 +12,7 @@
   extraResources: ["./eligibility.db"],
   files: ["dist-electron", "dist"],
   mac: {
-    artifactName: "${productName}_${version}.${ext}",
+    artifactName: "${productName}_${version} installer.${ext}",
     target: ["dmg", "zip"],
   },
   win: {

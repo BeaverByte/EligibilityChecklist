@@ -65,6 +65,7 @@ async function createWindow() {
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       // contextIsolation: false,
     },
+    autoHideMenuBar: true,
     minWidth: 900,
     minHeight: 600,
     resizable: false,
