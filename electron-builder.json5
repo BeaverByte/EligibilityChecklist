@@ -2,7 +2,7 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  appId: "YourAppID",
+  appId: "eligibility-checklist",
   icon: "build/icon.ico",
   asar: true,
   directories: {
