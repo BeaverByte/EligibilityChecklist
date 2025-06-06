@@ -1,4 +1,3 @@
-import { SetStateAction, useEffect, useState } from "react";
 import Question from "../Question/Question";
 import { UseQuestions } from "../../contexts/QuestionsContext";
 import Button from "../Button/Button";
@@ -10,11 +9,10 @@ function Questionnaire() {
     updateQuestion,
     selectedAnswer,
     setSelectedAnswer,
-    questionsList,
     resetQuestionnaire,
   } = UseQuestions();
 
-  const { id, text, elementType, options } = currentQuestion;
+  const { text, elementType, options } = currentQuestion;
 
   const handleSubmit = function (event) {
     event.preventDefault();
