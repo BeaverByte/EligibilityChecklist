@@ -28,6 +28,7 @@
     "better-sqlite3": "^11.1.2",
     "dayjs": "^1.11.11",
     "electron-updater": "^6.3.0-alpha.6",
+    "eligibility-checklist": "file:",
     "framer-motion": "^11.2.13",
     "jsdoc": "^4.0.3",
     "react-router-dom": "^6.24.0"
